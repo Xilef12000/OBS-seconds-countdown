@@ -105,7 +105,7 @@ end
 -- can change for the entire script module itself
 function script_properties()
 	local props = obs.obs_properties_create()
-	obs.obs_properties_add_int(props, "duration", "Duration (minutes)", 1, 100000, 1)
+	obs.obs_properties_add_int(props, "duration", "Duration (seconds)", 1, 100000, 1)
 
 	local p = obs.obs_properties_add_list(props, "source", "Text Source", obs.OBS_COMBO_TYPE_EDITABLE, obs.OBS_COMBO_FORMAT_STRING)
 	local sources = obs.obs_enum_sources()
@@ -136,7 +136,7 @@ end
 function script_update(settings)
 	activate(false)
 
-	total_seconds = obs.obs_data_get_int(settings, "duration") * 60
+	total_seconds = obs.obs_data_get_int(settings, "duration")
 	source_name = obs.obs_data_get_string(settings, "source")
 	stop_text = obs.obs_data_get_string(settings, "stop_text")
 
@@ -145,7 +145,7 @@ end
 
 -- A function named script_defaults will be called to set the default settings
 function script_defaults(settings)
-	obs.obs_data_set_default_int(settings, "duration", 5)
+	obs.obs_data_set_default_int(settings, "duration", 30)
 	obs.obs_data_set_default_string(settings, "stop_text", "Starting soon (tm)")
 end
 
